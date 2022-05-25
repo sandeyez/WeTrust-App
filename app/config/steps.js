@@ -1,0 +1,16 @@
+export default [
+  "Stroke Onset",
+  "Emergency Phone Call",
+  "Ambulance Arrival",
+  "Notification Stroke Team",
+  "Hospital Door Arrival",
+  "Randomization",
+  "Angio Suite Arrival",
+  "Triage Imaging",
+  "Thrombolytics Administration Start",
+  "Arterial Puncture",
+  "Device Deployment",
+  "Succesfull Reperfusion",
+  "Skin Closure",
+  "Finish report",
+];
