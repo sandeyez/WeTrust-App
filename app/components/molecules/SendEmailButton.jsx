@@ -12,8 +12,8 @@ import allSteps from "../../config/steps";
 import moment from "moment";
 
 function SendEmailButton({ display }) {
-  const { patientNumber } = usePatient();
-  const { steps } = useSteps();
+  const { patientNumber, clearPatientInfo } = usePatient();
+  const { steps, clearSteps } = useSteps();
 
   function sendEmail() {
     const options = {
@@ -32,8 +32,17 @@ function SendEmailButton({ display }) {
         });
     });
     promise.then(
-      (result) => Alert.alert("Status: email " + result.status),
-      (error) => Alert.alert("Status: email " + error.status)
+      (result) => {
+        Alert.alert("Email verstuurd!");
+        clearPatientInfo();
+        clearSteps();
+        
+      },
+      (error) =>
+        Alert.alert(
+          "Er is wat misgegaan met het versturen van de mail",
+          error.status
+        )
     );
   }
 

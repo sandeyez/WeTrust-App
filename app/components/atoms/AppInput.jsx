@@ -3,13 +3,14 @@ import { View, StyleSheet, TextInput } from "react-native";
 import colors from "../../config/colors";
 
 function AppInput({ style, onBlur = console.log, value = "", ...otherProps }) {
-  const [text, setText] = useState(value);
+  //const [text, setText] = useState(value);
 
   return (
     <TextInput
       style={[styles.input, style]}
-      onChangeText={(newText) => setText(newText)}
-      onBlur={() => onBlur(text)}
+      onBlur={onBlur}
+      value={value}
+      multiline
       {...otherProps}
     />
   );

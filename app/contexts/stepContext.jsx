@@ -3,18 +3,30 @@ import moment from "moment";
 import settings from "../config/settings";
 import { v4 as uuid } from "uuid";
 import allSteps from "../config/steps";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const StepContext = createContext();
 
 export function StepProvider({ children }) {
   const [steps, setSteps] = useState([]);
+  const [stepsLoaded, setStepsLoaded] = useState(false);
 
   useEffect(() => {
-    if (steps.length === 0)
+    getSteps();
+  }, []);
+
+  useEffect(() => {
+    if (stepsLoaded && steps.length === 0)
       for (let i = 0; i < settings.startStep; i++) {
         skipStep();
       }
-  }, []);
+  }, [stepsLoaded]);
+
+  useEffect(() => {
+    console.log("Steps changed!");
+    console.log(steps);
+    saveSteps();
+  }, [steps]);
 
   function recordStep() {
     if (steps.length < allSteps.length) {
@@ -67,6 +79,32 @@ export function StepProvider({ children }) {
     }
   }
 
+  // Save to AsyncStorage
+  async function saveSteps() {
+    console.log("Saving steps");
+    console.log(steps);
+    await AsyncStorage.setItem("steps", JSON.stringify(steps));
+  }
+
+  // Load from AsyncStorage
+  async function getSteps() {
+    console.log("Loading steps");
+    await AsyncStorage.getItem("steps")
+      .then((value) => {
+        value ? setSteps(JSON.parse(value)) : setSteps([]);
+      })
+      .catch((error) => {
+        console.log(error);
+        setSteps([]);
+      });
+    setStepsLoaded(true);
+  }
+
+  function clearSteps() {
+    setSteps([]);
+    AsyncStorage.removeItem("steps");
+  }
+
   const value = {
     steps,
     stepIndex: steps.length + 1,
@@ -74,6 +112,7 @@ export function StepProvider({ children }) {
     skipStep,
     editStep,
     mergeTime,
+    clearSteps,
   };
   return <StepContext.Provider value={value}>{children}</StepContext.Provider>;
 }

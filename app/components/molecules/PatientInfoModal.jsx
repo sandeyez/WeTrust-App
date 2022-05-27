@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Modal,
   StyleSheet,
@@ -15,8 +15,14 @@ import { usePatient } from "../../contexts/patientContext";
 import SmallButton from "./SmallButton";
 
 function PatientInfoModal({ visible, onClose }) {
-  const { setPatientNumber } = usePatient();
+  const { patientNumber, setPatientNumber } = usePatient();
   const [inputValue, setInputValue] = useState("");
+
+  useEffect(() => {
+    if (patientNumber) {
+      setInputValue(patientNumber.toString());
+    }
+  }, [patientNumber]);
 
   function handleClose() {
     if (inputValue.length < 1) console.log("Nothing");
@@ -46,7 +52,7 @@ function PatientInfoModal({ visible, onClose }) {
                   style={{ height: 40, flex: 1 }}
                   onChangeText={(value) => setInputValue(value)}
                   value={inputValue}
-                  onBlur={(text) => setInputValue(text)}
+                  onBlur={() => setInputValue(text)}
                   maxLength={4}
                 />
                 <SmallButton

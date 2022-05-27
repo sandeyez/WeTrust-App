@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import Screen from "./../templates/Screen";
-import { Ionicons } from "@expo/vector-icons";
-import colors from "../../config/colors";
 import PatientNumber from "./../molecules/PatientNumber";
 import PreviousSteps from "../templates/PreviousSteps";
 import Header from "../atoms/Header";
-import AppButton from "../atoms/AppButton";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useSteps } from "../../contexts/stepContext";
 import SmallText from "../atoms/SmallText";
 import SendEmailButton from "../molecules/SendEmailButton";

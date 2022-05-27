@@ -14,12 +14,13 @@ function StepData({
   EditComponent,
   title,
   value,
+  fullWidth = false,
 }) {
   return (
     <View style={[styles.container, style]}>
       <View>
         <SmallText bold>{title}</SmallText>
-        <View style={{ width: 100 }}>
+        <View style={{ width: fullWidth ? 250 : 100 }}>
           {editing ? <EditComponent /> : <SmallText>{value || "-"}</SmallText>}
         </View>
       </View>

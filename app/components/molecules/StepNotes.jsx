@@ -8,6 +8,7 @@ import SmallButton from "./SmallButton";
 function StepNotes({ style, value, id }) {
   const { editStep } = useSteps();
   const [editing, setEditing] = useState(false);
+  const [text, setText] = useState(value);
 
   console.log(value);
 
@@ -19,16 +20,19 @@ function StepNotes({ style, value, id }) {
           onEdit={() => setEditing(true)}
           title="Notities:"
           value={value ? value : "-"}
+          fullWidth
         />
       ) : (
         <View style={styles.container}>
           <AppInput
             style={styles.input}
-            onBlur={(text) => {
+            onBlur={() => {
               setEditing(false);
               editStep(id, "notes", text);
             }}
-            value={value}
+            value={text}
+            multiline
+            onChangeText={(text) => setText(text)}
           />
           <SmallButton
             style={styles.button}
