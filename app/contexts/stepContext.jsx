@@ -17,9 +17,7 @@ export function StepProvider({ children }) {
 
   useEffect(() => {
     if (stepsLoaded && steps.length === 0)
-      for (let i = 0; i < settings.startStep; i++) {
-        skipStep();
-      }
+      initSteps();
   }, [stepsLoaded]);
 
   useEffect(() => {
@@ -27,6 +25,12 @@ export function StepProvider({ children }) {
     console.log(steps);
     saveSteps();
   }, [steps]);
+
+  function initSteps() {
+    for (let i = 0; i < settings.startStep; i++) {
+      skipStep();
+    }
+  }
 
   function recordStep() {
     if (steps.length < allSteps.length) {
@@ -101,8 +105,9 @@ export function StepProvider({ children }) {
   }
 
   function clearSteps() {
-    setSteps([]);
     AsyncStorage.removeItem("steps");
+    setSteps([]);
+    initSteps();
   }
 
   const value = {

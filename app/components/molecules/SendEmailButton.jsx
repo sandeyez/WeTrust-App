@@ -11,7 +11,7 @@ import { useSteps } from "../../contexts/stepContext";
 import allSteps from "../../config/steps";
 import moment from "moment";
 
-function SendEmailButton({ display }) {
+function SendEmailButton({ display, navigation }) {
   const { patientNumber, clearPatientInfo } = usePatient();
   const { steps, clearSteps } = useSteps();
 
@@ -36,7 +36,7 @@ function SendEmailButton({ display }) {
         Alert.alert("Email verstuurd!");
         clearPatientInfo();
         clearSteps();
-        
+        navigation.navigate("Home");
       },
       (error) =>
         Alert.alert(

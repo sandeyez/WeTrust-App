@@ -1,7 +1,7 @@
 export default {
-  startStep: 5,
-  utcOffset: 120,
+    startStep: 5,
+    utcOffset: 120,
 
-  emailRecipient: "test@gmail.com",
-  emailHeader: "[AUTOMATED] WeTrust time for patient ",
+    emailRecipient: "f.van.werkhooven@antoniusziekenhuis.nl",
+    emailHeader: "[WETRUST] WeTrust time for patient ",
 };

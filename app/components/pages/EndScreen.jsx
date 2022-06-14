@@ -45,7 +45,7 @@ function EndScreen({ navigation }) {
       )}
 
       <PreviousSteps />
-      <SendEmailButton display={errorSteps?.length === 0} />
+      <SendEmailButton display={errorSteps?.length === 0} navigation={navigation}/>
     </Screen>
   );
 }
