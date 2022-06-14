@@ -21,8 +21,6 @@ export function StepProvider({ children }) {
   }, [stepsLoaded]);
 
   useEffect(() => {
-    console.log("Steps changed!");
-    console.log(steps);
     saveSteps();
   }, [steps]);
 
@@ -49,13 +47,11 @@ export function StepProvider({ children }) {
       datetime: null,
       notes: "",
     };
-    console.log("Added step", newStep);
 
     setSteps((oldSteps) => [...oldSteps, newStep]);
   }
 
   function editStep(id, key, value) {
-    console.log(id, key, value);
     let oldSteps = [...steps];
     let step = steps[id];
     step[key] = value;
@@ -85,20 +81,16 @@ export function StepProvider({ children }) {
 
   // Save to AsyncStorage
   async function saveSteps() {
-    console.log("Saving steps");
-    console.log(steps);
     await AsyncStorage.setItem("steps", JSON.stringify(steps));
   }
 
   // Load from AsyncStorage
   async function getSteps() {
-    console.log("Loading steps");
     await AsyncStorage.getItem("steps")
       .then((value) => {
         value ? setSteps(JSON.parse(value)) : setSteps([]);
       })
       .catch((error) => {
-        console.log(error);
         setSteps([]);
       });
     setStepsLoaded(true);

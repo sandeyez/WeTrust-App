@@ -25,7 +25,7 @@ function PatientInfoModal({ visible, onClose }) {
   }, [patientNumber]);
 
   function handleClose() {
-    if (inputValue.length < 1) console.log("Nothing");
+    if (inputValue.length < 1) return;
     else {
       setPatientNumber(inputValue);
       onClose();
@@ -53,7 +53,7 @@ function PatientInfoModal({ visible, onClose }) {
                   onChangeText={(value) => setInputValue(value)}
                   value={inputValue}
                   onBlur={() => setInputValue(text)}
-                  maxLength={4}
+                  maxLength={7}
                 />
                 <SmallButton
                   style={styles.button}

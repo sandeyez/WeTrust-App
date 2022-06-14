@@ -46,8 +46,6 @@ function SendEmailButton({ display, navigation }) {
     );
   }
 
-  console.log(formatSteps());
-
   function formatSteps() {
     let string = "";
 

@@ -13,16 +13,12 @@ export function PatientProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    console.log("Patient number changed!");
-    console.log(patientNumber);
     if (patientNumber) savePatientNumber();
   }, [patientNumber]);
 
   // Get patient number from storage
   function getPatientNumber() {
-    console.log("Getting patient number...");
     AsyncStorage.getItem("patientNumber").then((value) => {
-      console.log("Patient number found:", value);
       if (value !== null) {
         setPatientNumber(parseInt(value));
       }
@@ -31,7 +27,6 @@ export function PatientProvider({ children }) {
 
   // Save patient number to storage
   function savePatientNumber() {
-    console.log("Saving patient number...");
     AsyncStorage.setItem("patientNumber", patientNumber.toString());
   }
 

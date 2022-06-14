@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, StyleSheet, TextInput } from "react-native";
 import colors from "../../config/colors";
 
-function AppInput({ style, onBlur = console.log, value = "", ...otherProps }) {
+function AppInput({ style, onBlur = () => {}, value = "", ...otherProps }) {
   //const [text, setText] = useState(value);
 
   return (

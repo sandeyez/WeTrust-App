@@ -17,7 +17,6 @@ function StepCard({ style, id }) {
   const [notes, setNotes] = useState();
 
   useEffect(() => {
-    console.log("Datetime changed!");
     setDatetime(allSteps[id].datetime);
     setNotes(allSteps[id].notes);
   }, [allSteps]);

@@ -10,8 +10,6 @@ function StepNotes({ style, value, id }) {
   const [editing, setEditing] = useState(false);
   const [text, setText] = useState(value);
 
-  console.log(value);
-
   return (
     <>
       {!editing ? (
