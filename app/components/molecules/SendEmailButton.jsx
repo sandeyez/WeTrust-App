@@ -39,10 +39,12 @@ function SendEmailButton({ display, navigation }) {
         navigation.navigate("Home");
       },
       (error) =>
-        Alert.alert(
+        {Alert.alert(
           "Er is wat misgegaan met het versturen van de mail",
           error.status
-        )
+        );
+        console.log(error);
+      }
     );
   }
 

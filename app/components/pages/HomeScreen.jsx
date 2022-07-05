@@ -6,6 +6,7 @@ import { useSteps } from "../../contexts/stepContext";
 import PatientNumber from "../molecules/PatientNumber";
 import SkipStepButton from "../molecules/SkipStepButton";
 import StepButton from "../molecules/StepButton";
+import AppHeader from "../organisms/AppHeader";
 import PreviousSteps from "../templates/PreviousSteps";
 import Screen from "../templates/Screen";
 import PatientInfoModal from "./../molecules/PatientInfoModal";
@@ -20,7 +21,7 @@ function HomeScreen({ navigation }) {
 
   return (
     <Screen style={styles.container}>
-      <PatientNumber />
+      <AppHeader navigation={navigation}/>
       <StepButton style={styles.stepButton} navigation={navigation} />
       {stepIndex < steps.length && (
         <SkipStepButton style={styles.skipStepButton} />

@@ -17,6 +17,7 @@ import SmallButton from "./SmallButton";
 function PatientInfoModal({ visible, onClose }) {
   const { patientNumber, setPatientNumber } = usePatient();
   const [inputValue, setInputValue] = useState("");
+  const [showError, setShowError] = useState(false);
 
   useEffect(() => {
     if (patientNumber) {
@@ -25,7 +26,9 @@ function PatientInfoModal({ visible, onClose }) {
   }, [patientNumber]);
 
   function handleClose() {
-    if (inputValue.length < 1) return;
+    if (inputValue.length < 1) {
+      setShowError(true);
+    }
     else {
       setPatientNumber(inputValue);
       onClose();
@@ -61,12 +64,9 @@ function PatientInfoModal({ visible, onClose }) {
                   iconName="check"
                 />
               </View>
+              {showError && <Text style={{ color: "red" }}>Voer eerst een patiëntnummer in</Text>}
+
             </View>
-            <TouchableWithoutFeedback onPress={handleClose}>
-              <View style={styles.doneContainer}>
-                <MaterialCommunityIcons size={24} name="close" />
-              </View>
-            </TouchableWithoutFeedback>
           </View>
         </View>
       </TouchableWithoutFeedback>

@@ -9,6 +9,7 @@ import SmallText from "../atoms/SmallText";
 import SendEmailButton from "../molecules/SendEmailButton";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import { usePatient } from "../../contexts/patientContext";
+import AppHeader from "../organisms/AppHeader";
 
 function EndScreen({ navigation }) {
   const [errorSteps, setErrorSteps] = useState();
@@ -38,12 +39,7 @@ function EndScreen({ navigation }) {
 
   return (
     <Screen style={styles.container}>
-      <View style={styles.header}>
-        <PatientNumber />
-        <TouchableWithoutFeedback onPress={handleReset}>
-          <MaterialCommunityIcons name="reload" size={24} color="black" />
-        </TouchableWithoutFeedback>
-      </View>
+      <AppHeader navigation={navigation}/>
 
       <Header style={{ marginBottom: 8 }}>Zijn deze gegevens correct?</Header>
 
