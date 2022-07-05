@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
   index: {
     marginRight: 4,
-    width: 25,
+    width: 30,
   },
   indexAndIcon: {
     flexDirection: "row",

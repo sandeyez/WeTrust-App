@@ -23,13 +23,14 @@ function StepTime({ value = null, id, style }) {
       <DateTimePicker
         value={value || new Date()}
         mode="time"
-        is24Hour={true}
+        is24Hour
         onChange={(_, date) => onChange(date)}
         display="default"
         style={{
           flex: 1,
           marginRight: 10,
         }}
+        locale="NL-nl"
       />
     );
   };

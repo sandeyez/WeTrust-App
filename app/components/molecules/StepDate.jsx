@@ -27,6 +27,8 @@ function StepDate({ id, value = null, style }) {
           flex: 1,
           marginRight: 10,
         }}
+        locale="NL-nl"
+
       />
     );
   };
