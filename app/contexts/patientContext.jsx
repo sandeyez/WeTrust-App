@@ -1,12 +1,18 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useSteps } from "./stepContext";
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/prop-types */
+import React, {
+  createContext, useContext, useEffect, useState,
+} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useMemo } from 'react';
+import { useSteps } from './stepContext';
 
 const PatientContext = createContext();
 
 export function PatientProvider({ children }) {
   const [patientNumber, setPatientNumber] = useState();
-  const {clearSteps} = useSteps();
+  const { clearSteps } = useSteps();
 
   useEffect(() => {
     getPatientNumber();
@@ -18,16 +24,16 @@ export function PatientProvider({ children }) {
 
   // Get patient number from storage
   function getPatientNumber() {
-    AsyncStorage.getItem("patientNumber").then((value) => {
+    AsyncStorage.getItem('patientNumber').then((value) => {
       if (value !== null) {
-        setPatientNumber(parseInt(value));
+        setPatientNumber(parseInt(value, 10));
       }
     });
   }
 
   // Save patient number to storage
   function savePatientNumber() {
-    AsyncStorage.setItem("patientNumber", patientNumber.toString());
+    AsyncStorage.setItem('patientNumber', patientNumber.toString());
   }
 
   function clearPatientInfo() {
@@ -36,11 +42,12 @@ export function PatientProvider({ children }) {
     clearSteps();
   }
 
-  const value = {
+  const value = useMemo({
     patientNumber,
     setPatientNumber,
-    clearPatientInfo
-  };
+    clearPatientInfo,
+  }, [patientNumber]);
+
   return (
     <PatientContext.Provider value={value}>{children}</PatientContext.Provider>
   );

@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { View, StyleSheet } from "react-native";
-import steps from "../../config/steps";
-import { usePatient } from "../../contexts/patientContext";
-import { useSteps } from "../../contexts/stepContext";
-import PatientNumber from "../molecules/PatientNumber";
-import SkipStepButton from "../molecules/SkipStepButton";
-import StepButton from "../molecules/StepButton";
-import AppHeader from "../organisms/AppHeader";
-import PreviousSteps from "../templates/PreviousSteps";
-import Screen from "../templates/Screen";
-import PatientInfoModal from "./../molecules/PatientInfoModal";
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/prop-types */
+import React, { useEffect, useState } from 'react';
+import { StyleSheet } from 'react-native';
+import steps from '../../config/steps';
+import { useSteps } from '../../contexts/stepContext';
+import SkipStepButton from '../molecules/SkipStepButton';
+import StepButton from '../molecules/StepButton';
+import UpcomingStep from '../molecules/UpcomingStep';
+import AppHeader from '../organisms/AppHeader';
+import PreviousSteps from '../templates/PreviousSteps';
+import Screen from '../templates/Screen';
+import PatientInfoModal from '../molecules/PatientInfoModal';
 
 function HomeScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState();
@@ -21,10 +23,11 @@ function HomeScreen({ navigation }) {
 
   return (
     <Screen style={styles.container}>
-      <AppHeader navigation={navigation}/>
+      <AppHeader navigation={navigation} />
+      {stepIndex < steps.length - 1 && (<UpcomingStep step={steps[stepIndex + 1]} />)}
       <StepButton style={styles.stepButton} navigation={navigation} />
       {stepIndex < steps.length && (
-        <SkipStepButton style={styles.skipStepButton} />
+      <SkipStepButton style={styles.skipStepButton} />
       )}
       <PreviousSteps />
       <PatientInfoModal
@@ -42,7 +45,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   skipStepButton: {
-    alignSelf: "flex-end",
+    alignSelf: 'flex-end',
   },
 });
 

@@ -1,10 +1,11 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
-import SmallText from "../atoms/SmallText";
-import AppButton from "../atoms/AppButton";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import colors from "../../config/colors";
-import SmallButton from "./../molecules/SmallButton";
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/prop-types */
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
+import SmallText from '../atoms/SmallText';
+import colors from '../../config/colors';
+import SmallButton from '../molecules/SmallButton';
 
 function StepData({
   style,
@@ -21,26 +22,24 @@ function StepData({
       <View>
         <SmallText bold>{title}</SmallText>
         <View style={{ width: fullWidth ? 250 : 100 }}>
-          {editing ? <EditComponent /> : <SmallText>{value || "-"}</SmallText>}
+          {editing ? <EditComponent /> : <SmallText>{value || '-'}</SmallText>}
         </View>
       </View>
       <SmallButton
         style={styles.button}
         onPress={editing ? onFinishEditing : onEdit}
-        iconName={editing ? "check" : "pencil"}
+        iconName={editing ? 'check' : 'pencil'}
       />
-      {/* <AppButton style={styles.button} onPress={onEdit}>
-        <MaterialCommunityIcons name="pencil" size={24} color="white" />
-      </AppButton> */}
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   button: {
     backgroundColor: colors.secondary,

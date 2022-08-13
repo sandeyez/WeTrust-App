@@ -1,15 +1,18 @@
-import React from "react";
-import { StyleSheet, Alert } from "react-native";
-import Header from "../atoms/Header";
-import AppButton from "../atoms/AppButton";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import colors from "../../config/colors";
-import * as MailComposer from "expo-mail-composer";
-import settings from "../../config/settings";
-import { usePatient } from "../../contexts/patientContext";
-import { useSteps } from "../../contexts/stepContext";
-import allSteps from "../../config/steps";
-import moment from "moment";
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/prop-types */
+import React from 'react';
+import { StyleSheet, Alert } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import * as MailComposer from 'expo-mail-composer';
+import moment from 'moment';
+import Header from '../atoms/Header';
+import AppButton from '../atoms/AppButton';
+import colors from '../../config/colors';
+import settings from '../../config/settings';
+import { usePatient } from '../../contexts/patientContext';
+import { useSteps } from '../../contexts/stepContext';
+import allSteps from '../../config/steps';
 
 function SendEmailButton({ display, navigation }) {
   const { patientNumber, clearPatientInfo } = usePatient();
@@ -22,7 +25,7 @@ function SendEmailButton({ display, navigation }) {
       body: formatSteps(),
     };
 
-    let promise = new Promise((resolve, reject) => {
+    const promise = new Promise((resolve, reject) => {
       MailComposer.composeAsync(options)
         .then((result) => {
           resolve(result);
@@ -32,36 +35,37 @@ function SendEmailButton({ display, navigation }) {
         });
     });
     promise.then(
-      (result) => {
-        Alert.alert("Email verstuurd!");
+      () => {
+        Alert.alert('Email verstuurd!');
         clearPatientInfo();
         clearSteps();
-        navigation.navigate("Home");
+        navigation.navigate('Home');
       },
-      (error) =>
-        {Alert.alert(
-          "Er is wat misgegaan met het versturen van de mail",
-          error.status
+      (error) => {
+        Alert.alert(
+          'Er is wat misgegaan met het versturen van de mail',
+          error.status,
         );
-        console.log(error);
-      }
+        console.error(error);
+      },
     );
   }
 
   function formatSteps() {
-    let string = "";
+    let string = '';
 
+    // eslint-disable-next-line array-callback-return
     steps.map((step, index) => {
-      let stepString = "";
+      let stepString = '';
       stepString += index + 1;
-      stepString += " ";
-      stepString += allSteps[index];
-      stepString += " ";
-      stepString += moment(step.datetime).format("DD-MM-YYYY HH:mm");
-      stepString += step.notes && "\n";
+      stepString += ' ';
+      stepString += allSteps[index].title;
+      stepString += ' ';
+      stepString += moment(step.datetime).format('DD-MM-YYYY HH:mm');
+      stepString += step.notes && '\n';
       stepString += step.notes;
 
-      string += stepString + "\n";
+      string += `${stepString}\n`;
     });
 
     return string;
@@ -69,7 +73,7 @@ function SendEmailButton({ display, navigation }) {
 
   return (
     display && (
-      <AppButton style={styles.button} onPress={sendEmail}>
+      <AppButton style={styles.button} onPress={() => sendEmail()}>
         <Header color="white" bold>
           Ja, verstuur
         </Header>
@@ -86,12 +90,12 @@ function SendEmailButton({ display, navigation }) {
 
 const styles = StyleSheet.create({
   button: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 20,
     right: 20,
     backgroundColor: colors.secondary,
     padding: 16,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
 });
 

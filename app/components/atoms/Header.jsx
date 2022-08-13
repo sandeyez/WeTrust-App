@@ -1,7 +1,10 @@
-import React from "react";
-import { Text, StyleSheet } from "react-native";
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/prop-types */
+import React from 'react';
+import { Text, StyleSheet } from 'react-native';
 
-import colors from "../../config/colors";
+import colors from '../../config/colors';
 
 function Header({
   bold = false,
@@ -14,7 +17,7 @@ function Header({
     <Text
       style={[
         styles.header,
-        { fontWeight: bold ? "bold" : "normal", color },
+        { fontWeight: bold ? 'bold' : 'normal', color },
         style,
       ]}
       {...otherProps}

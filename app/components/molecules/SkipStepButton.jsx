@@ -1,10 +1,13 @@
-import React from "react";
-import { StyleSheet } from "react-native";
-import AppButton from "./../atoms/AppButton";
-import colors from "../../config/colors";
-import SmallText from "../atoms/SmallText";
-import { Entypo } from "@expo/vector-icons";
-import { useSteps } from "../../contexts/stepContext";
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/prop-types */
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import { Entypo } from '@expo/vector-icons';
+import AppButton from '../atoms/AppButton';
+import colors from '../../config/colors';
+import SmallText from '../atoms/SmallText';
+import { useSteps } from '../../contexts/stepContext';
 
 function SkipStepButton({ style }) {
   const { skipStep } = useSteps();
@@ -20,14 +23,14 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.main,
     padding: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     borderRadius: 10,
     paddingLeft: 20,
   },
   text: {
-    color: "white",
+    color: 'white',
   },
 });
 

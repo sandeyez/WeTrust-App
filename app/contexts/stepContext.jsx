@@ -1,41 +1,54 @@
-import { createContext, useContext, useState, useEffect } from "react";
-import moment from "moment";
-import settings from "../config/settings";
-import { v4 as uuid } from "uuid";
-import allSteps from "../config/steps";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/prop-types */
+import React, {
+  createContext, useContext, useState, useEffect, useMemo,
+} from 'react';
+import moment from 'moment';
+import { v4 as uuid } from 'uuid';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import settings from '../config/settings';
+import { phase1Steps, phase2Steps, phase3Steps } from '../config/steps';
 
 const StepContext = createContext();
 
 export function StepProvider({ children }) {
   const [steps, setSteps] = useState([]);
   const [stepsLoaded, setStepsLoaded] = useState(false);
+  const [allSteps, setAllSteps] = useState(phase1Steps);
+  const [route, setRoute] = useState();
 
   useEffect(() => {
     getSteps();
   }, []);
 
   useEffect(() => {
-    if (stepsLoaded && steps.length === 0)
-      initSteps();
+    if (stepsLoaded && steps.length === 0) { initSteps(); }
   }, [stepsLoaded]);
 
   useEffect(() => {
     saveSteps();
   }, [steps]);
 
+  useEffect(() => {
+    if (route !== 'DTAS' || route !== 'CR') { return; }
+
+    setAllSteps((s) => s.concat(phase2Steps[route]));
+  }, [route]);
+
   function initSteps() {
-    for (let i = 0; i < settings.startStep; i++) {
+    for (let i = 0; i < settings.startStep; i += 1) {
       skipStep();
     }
   }
 
-  function recordStep() {
+  function recordStep(notes = '') {
     if (steps.length < allSteps.length) {
       const newStep = {
         id: uuid(),
         datetime: moment().utcOffset(settings.utcOffset),
-        notes: "",
+        notes,
       };
       setSteps((oldSteps) => [...oldSteps, newStep]);
     }
@@ -45,15 +58,15 @@ export function StepProvider({ children }) {
     const newStep = {
       id: uuid(),
       datetime: null,
-      notes: "",
+      notes: '',
     };
 
     setSteps((oldSteps) => [...oldSteps, newStep]);
   }
 
   function editStep(id, key, value) {
-    let oldSteps = [...steps];
-    let step = steps[id];
+    const oldSteps = [...steps];
+    const step = steps[id];
     step[key] = value;
     oldSteps[id] = step;
     setSteps(oldSteps);
@@ -63,46 +76,46 @@ export function StepProvider({ children }) {
     const step = steps[id];
 
     if (!step.datetime) {
-      editStep(id, "datetime", datetime);
+      editStep(id, 'datetime', datetime);
     } else {
-      let timestamp = new Date(step.datetime);
+      const timestamp = new Date(step.datetime);
 
-      if (mode === "time") {
+      if (mode === 'time') {
         timestamp.setHours(datetime.getHours());
         timestamp.setMinutes(datetime.getMinutes());
-      } else if (mode === "date") {
+      } else if (mode === 'date') {
         timestamp.setDate(datetime.getDate());
         timestamp.setMonth(datetime.getMonth());
         timestamp.getFullYear(datetime.setFullYear());
       }
-      editStep(id, "datetime", timestamp);
+      editStep(id, 'datetime', timestamp);
     }
   }
 
   // Save to AsyncStorage
   async function saveSteps() {
-    await AsyncStorage.setItem("steps", JSON.stringify(steps));
+    await AsyncStorage.setItem('steps', JSON.stringify(steps));
   }
 
   // Load from AsyncStorage
   async function getSteps() {
-    await AsyncStorage.getItem("steps")
+    await AsyncStorage.getItem('steps')
       .then((value) => {
         value ? setSteps(JSON.parse(value)) : setSteps([]);
       })
-      .catch((error) => {
+      .catch(() => {
         setSteps([]);
       });
     setStepsLoaded(true);
   }
 
   function clearSteps() {
-    AsyncStorage.removeItem("steps");
+    AsyncStorage.removeItem('steps');
     setSteps([]);
     initSteps();
   }
 
-  const value = {
+  const value = useMemo({
     steps,
     stepIndex: steps.length + 1,
     recordStep,
@@ -110,7 +123,8 @@ export function StepProvider({ children }) {
     editStep,
     mergeTime,
     clearSteps,
-  };
+    setRoute,
+  }, [steps]);
   return <StepContext.Provider value={value}>{children}</StepContext.Provider>;
 }
 

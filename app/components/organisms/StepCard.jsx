@@ -1,20 +1,26 @@
-import React, { useState, useEffect } from "react";
-import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
-import colors from "../../config/colors";
-import CardHeader from "../atoms/CardHeader";
-import { FontAwesome, Feather } from "@expo/vector-icons";
-import StepTime from "../molecules/StepTime";
-import StepDate from "./../molecules/StepDate";
-import StepNotes from "../molecules/StepNotes";
-import steps from "../../config/steps";
-import { useSteps } from "../../contexts/stepContext";
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/prop-types */import React, { useState, useEffect } from 'react';
+import {
+  View, StyleSheet, TouchableWithoutFeedback, Image,
+} from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import colors from '../../config/colors';
+import CardHeader from '../atoms/CardHeader';
+import StepTime from '../molecules/StepTime';
+import StepDate from '../molecules/StepDate';
+import StepNotes from '../molecules/StepNotes';
+import steps from '../../config/steps';
+import { useSteps } from '../../contexts/stepContext';
 
-function StepCard({ style, id }) {
+function StepCard({ style, id, error = false }) {
   const { steps: allSteps } = useSteps();
   const [expanded, setExpanded] = useState(false);
 
   const [datetime, setDatetime] = useState();
   const [notes, setNotes] = useState();
+
+  const step = steps[id];
 
   useEffect(() => {
     setDatetime(allSteps[id].datetime);
@@ -27,15 +33,16 @@ function StepCard({ style, id }) {
         <View style={styles.header}>
           <View style={styles.indexAndIcon}>
             <CardHeader bold={false} style={styles.index}>
-              {id + 1}.
+              {id + 1}
+              .
             </CardHeader>
-            <FontAwesome name="hospital-o" size={24} color="black" />
+            <Image source={require(step.imageUri)} />
           </View>
 
-          <CardHeader style={styles.stepName}>{steps[id]}</CardHeader>
+          <CardHeader style={styles.stepName} color={error ? 'red' : colors.main}>{step.title}</CardHeader>
 
           <Feather
-            name={expanded ? "chevron-up" : "chevron-down"}
+            name={expanded ? 'chevron-up' : 'chevron-down'}
             size={24}
             color={colors.main}
           />
@@ -55,11 +62,11 @@ function StepCard({ style, id }) {
 }
 
 const styles = StyleSheet.create({
-  container: { borderRadius: 8, overflow: "hidden" },
+  container: { borderRadius: 8, overflow: 'hidden' },
   header: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "white",
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'white',
     padding: 8,
   },
   index: {
@@ -67,7 +74,7 @@ const styles = StyleSheet.create({
     width: 30,
   },
   indexAndIcon: {
-    flexDirection: "row",
+    flexDirection: 'row',
     marginRight: 12,
   },
   stepName: {
@@ -76,14 +83,14 @@ const styles = StyleSheet.create({
   body: {
     paddingHorizontal: 16,
     paddingBottom: 16,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   stepData: {
-    width: "45%",
+    width: '45%',
   },
   dateTimeButtons: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginBottom: 10,
   },
 });

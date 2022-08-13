@@ -1,5 +1,13 @@
-import React from "react";
-import { Pressable, StyleSheet } from "react-native";
+/* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-props-no-spreading */
+import React from 'react';
+import { Pressable, StyleSheet } from 'react-native';
+
+const styles = StyleSheet.create({
+  button: {
+    borderRadius: 25,
+  },
+});
 
 function AppButton({ style, children, ...otherProps }) {
   return (
@@ -8,11 +16,5 @@ function AppButton({ style, children, ...otherProps }) {
     </Pressable>
   );
 }
-
-const styles = StyleSheet.create({
-  button: {
-    borderRadius: 25,
-  },
-});
 
 export default AppButton;

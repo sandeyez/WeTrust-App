@@ -1,10 +1,13 @@
-import React from "react";
-import { View, StyleSheet, FlatList } from "react-native";
-import StepCard from "../organisms/StepCard";
-import Header from "../atoms/Header";
-import { useSteps } from "../../contexts/stepContext";
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/prop-types */
+import React from 'react';
+import { View, StyleSheet, FlatList } from 'react-native';
+import StepCard from '../organisms/StepCard';
+import Header from '../atoms/Header';
+import { useSteps } from '../../contexts/stepContext';
 
-function PreviousSteps(props) {
+function PreviousSteps({ errorSteps = [] }) {
   const { steps } = useSteps();
 
   return (
@@ -14,10 +17,11 @@ function PreviousSteps(props) {
       <FlatList
         data={steps}
         keyExtractor={(step) => step.id}
-        renderItem={({ item, index }) => (
+        renderItem={({ index }) => (
           <StepCard
             id={steps.length - index - 1}
             style={{ marginVertical: 6 }}
+            error={errorSteps.includes(steps.length - index)}
           />
         )}
         showsVerticalScrollIndicator={false}

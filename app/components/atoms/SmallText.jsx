@@ -1,6 +1,9 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import colors from "../../config/colors";
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/prop-types */
+import React from 'react';
+import { Text, StyleSheet } from 'react-native';
+import colors from '../../config/colors';
 
 function SmallText({
   bold = false,
@@ -13,7 +16,7 @@ function SmallText({
     <Text
       style={[
         styles.smallText,
-        { fontWeight: bold ? "bold" : "normal", color },
+        { fontWeight: bold ? 'bold' : 'normal', color },
         style,
       ]}
       {...otherProps}
