@@ -17,10 +17,10 @@ export function StepProvider({ children }) {
   const [steps, setSteps] = useState([]);
   const [stepsLoaded, setStepsLoaded] = useState(false);
   const [allSteps, setAllSteps] = useState(phase1Steps);
-  const [route, setRoute] = useState();
+  const [route, setRoute] = useState('');
 
   useEffect(() => {
-    getSteps();
+    getStorageInfo();
   }, []);
 
   useEffect(() => {
@@ -32,9 +32,10 @@ export function StepProvider({ children }) {
   }, [steps]);
 
   useEffect(() => {
-    if (route !== 'DTAS' || route !== 'CR') { return; }
+    if (route !== 'DTAS' && route !== 'CR') { return; }
 
-    setAllSteps((s) => s.concat(phase2Steps[route]));
+    setAllSteps((s) => s.concat(phase2Steps[route], phase3Steps));
+    saveRoute();
   }, [route]);
 
   function initSteps() {
@@ -44,7 +45,7 @@ export function StepProvider({ children }) {
   }
 
   function recordStep(notes = '') {
-    if (steps.length < allSteps.length) {
+    if (steps.length < allSteps.length || route === '') {
       const newStep = {
         id: uuid(),
         datetime: moment().utcOffset(settings.utcOffset),
@@ -97,8 +98,12 @@ export function StepProvider({ children }) {
     await AsyncStorage.setItem('steps', JSON.stringify(steps));
   }
 
+  async function saveRoute() {
+    await AsyncStorage.setItem('route', JSON.stringify(route));
+  }
+
   // Load from AsyncStorage
-  async function getSteps() {
+  async function getStorageInfo() {
     await AsyncStorage.getItem('steps')
       .then((value) => {
         value ? setSteps(JSON.parse(value)) : setSteps([]);
@@ -106,16 +111,30 @@ export function StepProvider({ children }) {
       .catch(() => {
         setSteps([]);
       });
+
+    await AsyncStorage.getItem('route')
+      .then((value) => {
+        const parsedValue = JSON.parse(value);
+        if (parsedValue === 'DTAS' || parsedValue === 'CR') {
+          setRoute(parsedValue);
+        } else { setRoute(''); }
+      })
+      .catch(() => {
+        setRoute('');
+      });
     setStepsLoaded(true);
   }
 
-  function clearSteps() {
-    AsyncStorage.removeItem('steps');
+  async function clearSteps() {
+    await AsyncStorage.removeItem('steps');
+    await AsyncStorage.removeItem('route');
     setSteps([]);
+    setRoute('');
+    setAllSteps(phase1Steps);
     initSteps();
   }
 
-  const value = useMemo({
+  const value = useMemo(() => ({
     steps,
     stepIndex: steps.length + 1,
     recordStep,
@@ -123,9 +142,11 @@ export function StepProvider({ children }) {
     editStep,
     mergeTime,
     clearSteps,
+    route,
     setRoute,
-  }, [steps]);
-  return <StepContext.Provider value={value}>{children}</StepContext.Provider>;
+    allSteps,
+  }), [steps, allSteps]);
+  return <StepContext.Provider value={value}>{stepsLoaded && children}</StepContext.Provider>;
 }
 
 export function useSteps() {

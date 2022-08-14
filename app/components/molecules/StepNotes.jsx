@@ -14,13 +14,15 @@ function StepNotes({ style, value, id }) {
   const [text, setText] = useState(value);
 
   if (!editing) {
-    <StepData
-      style={style}
-      onEdit={() => setEditing(true)}
-      title="Notities:"
-      value={value || '-'}
-      fullWidth
-    />;
+    return (
+      <StepData
+        style={style}
+        onEdit={() => setEditing(true)}
+        title="Notities:"
+        value={value || '-'}
+        fullWidth
+      />
+    );
   }
 
   return (
@@ -28,17 +30,16 @@ function StepNotes({ style, value, id }) {
     <View style={styles.container}>
       <AppInput
         style={styles.input}
-        onBlur={() => {
-          setEditing(false);
-          editStep(id, 'notes', text);
-        }}
         value={text}
         multiline
         onChangeText={(_text) => setText(_text)}
       />
       <SmallButton
         style={styles.button}
-        onPress={() => setEditing(false)}
+        onPress={() => {
+          editStep(id, 'notes', text);
+          setEditing(false);
+        }}
         iconName="check"
       />
     </View>

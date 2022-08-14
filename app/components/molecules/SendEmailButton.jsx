@@ -12,11 +12,10 @@ import colors from '../../config/colors';
 import settings from '../../config/settings';
 import { usePatient } from '../../contexts/patientContext';
 import { useSteps } from '../../contexts/stepContext';
-import allSteps from '../../config/steps';
 
 function SendEmailButton({ display, navigation }) {
   const { patientNumber, clearPatientInfo } = usePatient();
-  const { steps, clearSteps } = useSteps();
+  const { steps, clearSteps, allSteps } = useSteps();
 
   function sendEmail() {
     const options = {

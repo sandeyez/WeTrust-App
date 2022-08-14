@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */import React, { useState, useEffect } from 'react';
 import {
-  View, StyleSheet, TouchableWithoutFeedback, Image,
+  View, StyleSheet, TouchableWithoutFeedback,
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import colors from '../../config/colors';
@@ -10,22 +10,21 @@ import CardHeader from '../atoms/CardHeader';
 import StepTime from '../molecules/StepTime';
 import StepDate from '../molecules/StepDate';
 import StepNotes from '../molecules/StepNotes';
-import steps from '../../config/steps';
 import { useSteps } from '../../contexts/stepContext';
 
 function StepCard({ style, id, error = false }) {
-  const { steps: allSteps } = useSteps();
+  const { steps, allSteps } = useSteps();
   const [expanded, setExpanded] = useState(false);
 
   const [datetime, setDatetime] = useState();
   const [notes, setNotes] = useState();
 
-  const step = steps[id];
+  const step = allSteps[id];
 
   useEffect(() => {
-    setDatetime(allSteps[id].datetime);
-    setNotes(allSteps[id].notes);
-  }, [allSteps]);
+    setDatetime(steps[id].datetime);
+    setNotes(steps[id].notes);
+  }, [steps]);
 
   return (
     <View style={[styles.container, style]}>
@@ -36,7 +35,7 @@ function StepCard({ style, id, error = false }) {
               {id + 1}
               .
             </CardHeader>
-            <Image source={require(step.imageUri)} />
+            {/* <Image source={require(step.imageUri)} /> */}
           </View>
 
           <CardHeader style={styles.stepName} color={error ? 'red' : colors.main}>{step.title}</CardHeader>

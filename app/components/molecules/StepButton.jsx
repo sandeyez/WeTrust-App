@@ -11,24 +11,53 @@ import Separator from '../atoms/Separator';
 import SmallText from '../atoms/SmallText';
 import AppButton from '../atoms/AppButton';
 import { useSteps } from '../../contexts/stepContext';
-import steps from '../../config/steps';
 
 function StepButton({ style, navigation }) {
-  const { stepIndex, recordStep } = useSteps();
+  const {
+    stepIndex, recordStep, allSteps, route, setRoute,
+  } = useSteps();
 
   function handlePress() {
-    if (stepIndex < steps.length) {
-      // eslint-disable-next-line no-unused-expressions
-      stepIndex !== 6 ? recordStep()
-        : Alert.alert('Randomization', 'What method will be used for this patient?', [
-          {
-            text: 'Direct to angio suite',
-            onPress: () => {
-              recordStep('Direct to angio suite');
+    if (stepIndex < allSteps.length || route === '') {
+      switch (allSteps[stepIndex - 1].id) {
+        case (6):
+          Alert.alert('Randomization', 'What method will be used for this patient?', [
+            {
+              text: 'Direct to angio suite',
+              onPress: () => {
+                setRoute('DTAS');
+                recordStep('Direct to angio suite');
+              },
             },
-          },
-          { text: 'Conventional Route', onPress: () => { recordStep('Conventional route'); } },
-        ]);
+            {
+              text: 'Conventional Route',
+              onPress: () => {
+                setRoute('CR');
+                recordStep('Conventional route');
+              },
+            },
+          ]);
+          break;
+        case (10):
+          Alert.alert('Thrombolytics Administration', 'Were thrombolytics given?', [
+            {
+              text: 'Yes',
+              onPress: () => {
+                recordStep('Thrombolytics given');
+              },
+            },
+            {
+              text: 'No',
+              onPress: () => {
+                recordStep('No thrombolytics given');
+              },
+            },
+          ]);
+          break;
+        default:
+          recordStep();
+          break;
+      }
     } else {
       navigation.navigate('End');
     }
@@ -36,7 +65,7 @@ function StepButton({ style, navigation }) {
 
   return (
     <AppButton style={[styles.container, style]} onPress={() => handlePress()}>
-      <ButtonText style={{ textAlign: 'center' }}>{steps[stepIndex - 1].title}</ButtonText>
+      <ButtonText style={{ textAlign: 'center' }}>{allSteps[stepIndex - 1].title}</ButtonText>
       <Separator style={{ marginVertical: 10 }} />
       <SmallText color={colors.secondary}>
         Stap
@@ -45,7 +74,7 @@ function StepButton({ style, navigation }) {
         {' '}
         van
         {' '}
-        {steps.length}
+        {allSteps.length}
       </SmallText>
     </AppButton>
   );

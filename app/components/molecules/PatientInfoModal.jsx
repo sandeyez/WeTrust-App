@@ -42,6 +42,7 @@ function PatientInfoModal({ visible, onClose }) {
       animationType="slide"
       transparent
       onRequestClose={() => handleClose()}
+
     >
       <TouchableWithoutFeedback onPress={() => handleClose()}>
         <View style={styles.overlay}>
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
   },
   separator: {
-    marginVertical: 10,
+    marginVertical: 20,
   },
   button: {
     marginLeft: 8,

@@ -1,95 +1,107 @@
-export const phase1Steps = [
-    {
+export const phase1Steps = [{
         title: 'Stroke Onset',
         obligated: true,
-        imageUri: './assets/stepIcons/1.png'
+        imageUri: './assets/stepIcons/1.png',
+        id: 1,
     },
-    { 
+    {
         title: 'Emergency Phone Call',
         obligated: false,
-        imageUri: './assets/stepIcons/2.png'
+        imageUri: './assets/stepIcons/2.png',
+        id: 2,
+    },
+    {
+        title: 'Ambulance Arrival',
+        obligated: false,
+        imageUri: './assets/stepIcons/3.png',
+        id: 3,
 
     },
-    { 
-        title: 'Ambulance Arrival', 
-        obligated: false,
-        imageUri: './assets/stepIcons/3.png'
-    },
-    { 
+    {
         title: 'Notification Stroke Team',
         obligated: true,
-        imageUri: './assets/stepIcons/4.png' 
-    },
-    { 
-        title: 'Hospital Door Arrival', 
-        obligated: true,
-        imageUri: './assets/stepIcons/5.png'
+        imageUri: './assets/stepIcons/4.png',
+        id: 4,
 
     },
-    { 
-        title: 'Randomization', 
+    {
+        title: 'Hospital Door Arrival',
         obligated: true,
-        imageUri: './assets/stepIcons/6.png'
+        imageUri: './assets/stepIcons/5.png',
+        id: 5,
+    },
+    {
+        title: 'Randomization',
+        obligated: true,
+        imageUri: './assets/stepIcons/6.png',
+        id: 6,
     },
 ];
 
 export const phase2Steps = {
-    "DTAS": [
-        {
-            title: 'Angio Suite Arrival', 
+    DTAS: [{
+            title: 'Angio Suite Arrival',
             obligated: true,
-            imageUri: './assets/stepIcons/7.png'
+            imageUri: './assets/stepIcons/7.png',
+            id: 7,
         },
         {
-            title: 'Triage Imaging', 
+            title: 'Triage Imaging',
             obligated: true,
-            imageUri: './assets/stepIcons/8.png'
+            imageUri: './assets/stepIcons/8.png',
+            id: 8,
         },
         {
-            title: 'Time of diagnosis image', 
+            title: 'Time of diagnosis image',
             obligated: true,
-            imageUri: './assets/stepIcons/9.png'
+            imageUri: './assets/stepIcons/9.png',
+            id: 9,
         },
         {
-            title: 'Trombolytics Administration', 
+            title: 'Trombolytics Administration',
             obligated: false,
-            imageUri: './assets/stepIcons/9.png'
+            imageUri: './assets/stepIcons/10.png',
+            id: 10,
         },
     ],
-    "CR": [
-        {
-            title: 'Arrival CT Room', 
+    CR: [{
+            title: 'Arrival CT Room',
             obligated: true,
-            imageUri: './assets/stepIcons/7.png'
+            imageUri: './assets/stepIcons/11.png',
+            id: 16,
         },
         {
-            title: 'Triage Imaging', 
+            title: 'Triage Imaging',
             obligated: true,
-            imageUri: './assets/stepIcons/8.png'
+            imageUri: './assets/stepIcons/8.png',
+            id: 8,
         },
         {
-            title: 'Time of diagnosis image', 
+            title: 'Time of diagnosis image',
             obligated: true,
-            imageUri: './assets/stepIcons/9.png'
+            imageUri: './assets/stepIcons/9.png',
+            id: 9,
         },
         {
-            title: 'Trombolytics Administration', 
+            title: 'Trombolytics Administration',
             obligated: false,
-            imageUri: './assets/stepIcons/9.png'
+            imageUri: './assets/stepIcons/10.png',
+            id: 10,
         },
         {
-            title: 'Angio Suite Arrival', 
+            title: 'Angio Suite Arrival',
             obligated: true,
-            imageUri: './assets/stepIcons/7.png'
+            imageUri: './assets/stepIcons/7.png',
+            id: 7,
         },
     ],
 
-}
+};
 
 export const phase3Steps = [
-{ title: 'Arterial Puncture', obligated: true },
-{ title: 'Device Deployment', obligated: true },
-{ title: 'Succesfull Reperfusion', obligated: true },
-{ title: 'Skin Closure', obligated: true },
-{ title: 'Finish report', obligated: true },
+    { title: 'Arterial Puncture', obligated: true, id: 11 },
+    { title: 'Device Deployment', obligated: true, id: 12 },
+    { title: 'Succesfull Reperfusion', obligated: true, id: 13 },
+    { title: 'Skin Closure', obligated: true, id: 14 },
+    { title: 'Finish report', obligated: true, id: 15 },
 ];

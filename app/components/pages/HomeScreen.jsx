@@ -3,7 +3,6 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
-import steps from '../../config/steps';
 import { useSteps } from '../../contexts/stepContext';
 import SkipStepButton from '../molecules/SkipStepButton';
 import StepButton from '../molecules/StepButton';
@@ -12,21 +11,23 @@ import AppHeader from '../organisms/AppHeader';
 import PreviousSteps from '../templates/PreviousSteps';
 import Screen from '../templates/Screen';
 import PatientInfoModal from '../molecules/PatientInfoModal';
+import { usePatient } from '../../contexts/patientContext';
 
 function HomeScreen({ navigation }) {
-  const [modalVisible, setModalVisible] = useState();
-  const { stepIndex } = useSteps();
+  const [modalVisible, setModalVisible] = useState(true);
+  const { stepIndex, allSteps } = useSteps();
+  const { patientNumber } = usePatient();
 
   useEffect(() => {
-    setModalVisible(true);
+    setModalVisible(!patientNumber);
   }, []);
 
   return (
     <Screen style={styles.container}>
       <AppHeader navigation={navigation} />
-      {stepIndex < steps.length - 1 && (<UpcomingStep step={steps[stepIndex + 1]} />)}
+      {stepIndex < allSteps.length - 1 && (<UpcomingStep step={allSteps[stepIndex]} />)}
       <StepButton style={styles.stepButton} navigation={navigation} />
-      {stepIndex < steps.length && (
+      {stepIndex < allSteps.length && (
       <SkipStepButton style={styles.skipStepButton} />
       )}
       <PreviousSteps />

@@ -12,12 +12,11 @@ import { useSteps } from '../../contexts/stepContext';
 import SmallText from '../atoms/SmallText';
 import SendEmailButton from '../molecules/SendEmailButton';
 import AppHeader from '../organisms/AppHeader';
-import allSteps from '../../config/steps';
 
 function EndScreen({ navigation }) {
   const [errorSteps, setErrorSteps] = useState([]);
   const [NTHErrorSteps, setNTHErrorSteps] = useState([]);
-  const { steps } = useSteps();
+  const { steps, allSteps } = useSteps();
 
   useEffect(() => {
     checkSteps();
@@ -31,6 +30,7 @@ function EndScreen({ navigation }) {
       const step = steps[i];
 
       if (step.datetime === null && allSteps[i].obligated) result.push(i + 1);
+      else if (allSteps[i].id === 10 && !step.notes) result.push(i + 1);
     }
 
     setErrorSteps(result);
@@ -66,7 +66,7 @@ function EndScreen({ navigation }) {
           nog data
         </SmallText>
       )}
-      {errorSteps?.length > 0 && (
+      {NTHErrorSteps?.length > 0 && (
         <SmallText color="orange">
           Step
           {NTHErrorSteps.length > 1 && 's'}

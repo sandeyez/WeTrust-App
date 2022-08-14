@@ -2,10 +2,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
 import React, {
-  createContext, useContext, useEffect, useState,
+  createContext, useContext, useEffect, useState, useMemo,
 } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useMemo } from 'react';
 import { useSteps } from './stepContext';
 
 const PatientContext = createContext();
@@ -42,11 +41,11 @@ export function PatientProvider({ children }) {
     clearSteps();
   }
 
-  const value = useMemo({
+  const value = useMemo(() => ({
     patientNumber,
     setPatientNumber,
     clearPatientInfo,
-  }, [patientNumber]);
+  }), [patientNumber]);
 
   return (
     <PatientContext.Provider value={value}>{children}</PatientContext.Provider>
