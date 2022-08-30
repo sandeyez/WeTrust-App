@@ -65,7 +65,7 @@ function StepButton({ style, navigation }) {
 
   return (
     <AppButton style={[styles.container, style]} onPress={() => handlePress()}>
-      <Image source={allSteps[stepIndex - 1]?.imageUri} />
+      <Image resizeMode="contain" source={allSteps[stepIndex - 1]?.imageUri} style={{ width: 50, height: 50 }} />
       <ButtonText style={{ textAlign: 'center', marginTop: 10 }}>{allSteps[stepIndex - 1].title}</ButtonText>
       <Separator style={{ marginVertical: 10 }} />
       <SmallText color={colors.secondary}>

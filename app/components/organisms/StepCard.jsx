@@ -38,6 +38,7 @@ function StepCard({ style, id, error = false }) {
             <Image
               style={{ width: 30, height: 30 }}
               source={step.imageUri}
+              resizeMode="contain"
             />
           </View>
 

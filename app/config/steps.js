@@ -128,6 +128,7 @@ export const phase3Steps = [{
     {
         title: 'Finish report',
         obligated: true,
+        imageUri: require('../../assets/stepIcons/15.png'),
         id: 15,
     },
 ];
