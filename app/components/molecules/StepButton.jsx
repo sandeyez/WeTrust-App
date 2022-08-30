@@ -3,7 +3,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import {
-  StyleSheet, Alert,
+  StyleSheet, Alert, Image,
 } from 'react-native';
 import colors from '../../config/colors';
 import ButtonText from '../atoms/ButtonText';
@@ -65,7 +65,8 @@ function StepButton({ style, navigation }) {
 
   return (
     <AppButton style={[styles.container, style]} onPress={() => handlePress()}>
-      <ButtonText style={{ textAlign: 'center' }}>{allSteps[stepIndex - 1].title}</ButtonText>
+      <Image source={allSteps[stepIndex - 1]?.imageUri} />
+      <ButtonText style={{ textAlign: 'center', marginTop: 10 }}>{allSteps[stepIndex - 1].title}</ButtonText>
       <Separator style={{ marginVertical: 10 }} />
       <SmallText color={colors.secondary}>
         Stap

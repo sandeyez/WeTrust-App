@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */import React, { useState, useEffect } from 'react';
 import {
-  View, StyleSheet, TouchableWithoutFeedback,
+  View, StyleSheet, TouchableWithoutFeedback, Image,
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import colors from '../../config/colors';
@@ -35,7 +35,10 @@ function StepCard({ style, id, error = false }) {
               {id + 1}
               .
             </CardHeader>
-            {/* <Image source={require(step.imageUri)} /> */}
+            <Image
+              style={{ width: 30, height: 30 }}
+              source={step.imageUri}
+            />
           </View>
 
           <CardHeader style={styles.stepName} color={error ? 'red' : colors.main}>{step.title}</CardHeader>
@@ -69,7 +72,6 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   index: {
-    marginRight: 4,
     width: 30,
   },
   indexAndIcon: {
