@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
@@ -35,10 +36,18 @@ function SendEmailButton({ display, navigation }) {
     });
     promise.then(
       () => {
-        Alert.alert('Email verstuurd!');
-        clearPatientInfo();
-        clearSteps();
-        navigation.navigate('Home');
+        Alert.alert('Email verstuurd!', undefined, [
+          {
+            text: 'OK',
+            onPress: () => {
+              clearPatientInfo();
+              setTimeout(() => {
+                navigation.navigate('Home');
+                clearSteps();
+              }, 500);
+            },
+          },
+        ]);
       },
       (error) => {
         Alert.alert(

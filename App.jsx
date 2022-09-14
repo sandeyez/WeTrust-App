@@ -1,13 +1,13 @@
-import HomeScreen from "./app/components/pages/HomeScreen";
-import { StepProvider, useSteps } from "./app/contexts/stepContext";
-import "react-native-get-random-values";
-import { useState, useEffect } from "react";
-import AppLoading from "expo-app-loading";
-import { PatientProvider } from "./app/contexts/patientContext";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import EndScreen from "./app/components/pages/EndScreen";
-import SplashScreen from "./app/components/pages/SplashScreen";
+/* eslint-disable linebreak-style */
+import HomeScreen from './app/components/pages/HomeScreen';
+import { StepProvider, useSteps } from './app/contexts/stepContext';
+import 'react-native-get-random-values';
+import React, { useState, useEffect } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { PatientProvider } from './app/contexts/patientContext';
+import EndScreen from './app/components/pages/EndScreen';
+import SplashScreen from './app/components/pages/SplashScreen';
 
 export default function App() {
   return (

@@ -70,7 +70,7 @@ export const phase2Steps = {
     CR: [{
             title: 'Arrival CT Room',
             obligated: true,
-            imageUri: require('../../assets/stepIcons/11.png'),
+            imageUri: require('../../assets/stepIcons/16.png'),
             id: 16,
         },
         {
