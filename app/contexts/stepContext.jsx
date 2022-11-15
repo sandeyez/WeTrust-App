@@ -48,7 +48,7 @@ export function StepProvider({ children }) {
     if (steps.length < allSteps.length || route === '') {
       const newStep = {
         id: uuid(),
-        datetime: moment().utcOffset(settings.utcOffset),
+        datetime: moment().locale('nl'),
         notes,
       };
       setSteps((oldSteps) => [...oldSteps, newStep]);

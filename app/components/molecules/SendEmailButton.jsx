@@ -76,6 +76,8 @@ function SendEmailButton({ display, navigation }) {
       string += `${stepString}\n`;
     });
 
+    console.log(string);
+
     return string;
   }
 

@@ -19,7 +19,6 @@ function EditComponent({ value, onChange }) {
         marginRight: 10,
       }}
       locale="NL-nl"
-
     />
   );
 }
