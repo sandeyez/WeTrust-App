@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 20,
     right: 20,
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.main,
     padding: 16,
     flexDirection: 'row',
   },

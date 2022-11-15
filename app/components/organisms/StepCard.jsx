@@ -22,9 +22,12 @@ function StepCard({ style, id, error = false }) {
   const step = allSteps[id];
 
   useEffect(() => {
-    setDatetime(steps[id].datetime);
+    setDatetime(steps[id].datetime ? new Date(steps[id].datetime) : null);
     setNotes(steps[id].notes);
   }, [steps]);
+
+  useEffect(() => {
+  }, [datetime]);
 
   return (
     <View style={[styles.container, style]}>
